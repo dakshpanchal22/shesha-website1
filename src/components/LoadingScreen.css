@@ -1,0 +1,128 @@
+.loading-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* Cinematic dark blue gradient */
+  background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* The Animated Grid Background */
+.loading-container::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: 
+    linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: rotateX(45deg);
+  animation: grid-move 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes grid-move {
+  0% { transform: rotateX(45deg) translateY(0); }
+  100% { transform: rotateX(45deg) translateY(50px); }
+}
+
+/* Keep the original Stack settings */
+.stack {
+  --stack-dur: 2s;
+  --stack-delay: 0.05;
+  --stack-spacing: 15%;
+  position: relative;
+  width: 14em;
+  height: 32em;
+  perspective: 1000px;
+  z-index: 1; /* Sits above the grid */
+}
+
+.stack__card {
+  aspect-ratio: 1;
+  position: absolute;
+  inset: 0;
+  top: var(--stack-spacing);
+  margin: auto;
+  width: 70%;
+  transform: rotateX(45deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+}
+
+.stack__card::before {
+  animation: card var(--stack-dur) infinite;
+  background-color: #1e293b; /* Primary Dark */
+  border-radius: 7.5%;
+  box-shadow: -0.5em 0.5em 1.5em rgba(0,0,0,0.5);
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.stack__card:nth-child(2) { top: 0; }
+.stack__card:nth-child(2)::before {
+  animation-delay: calc(var(--stack-dur) * (-1 + var(--stack-delay)));
+  background-color: #334155; /* Primary Medium */
+}
+
+.stack__card:nth-child(3) { top: calc(var(--stack-spacing) * -1); }
+.stack__card:nth-child(3)::before {
+  animation-delay: calc(var(--stack-dur) * (-1 + var(--stack-delay) * 2));
+  background-color: #f8fafc; /* Primary Light/White */
+}
+
+.stack__logo-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  animation: logo-move var(--stack-dur) infinite;
+}
+
+.stack__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Original Card Animation Logic */
+@keyframes card {
+  0%, 100% { transform: translateZ(0); animation-timing-function: ease-in-out; }
+  11% { transform: translateZ(0.125em); }
+  34% { opacity: 0; transform: translateZ(-12em); }
+  48% { opacity: 0; transform: translateZ(12em); }
+  57% { opacity: 1; transform: translateZ(0); }
+  61% { transform: translateZ(-1.8em); }
+  74% { transform: translateZ(0.6em); }
+  87% { transform: translateZ(-0.2em); }
+}
+
+@keyframes logo-move {
+  0%, 100% { transform: translate(-50%, -50%) translateZ(0); }
+  11% { transform: translate(-50%, -50%) translateZ(0.125em); }
+  34% { opacity: 0; transform: translate(-50%, -50%) translateZ(-12em); }
+  48% { opacity: 0; transform: translate(-50%, -50%) translateZ(12em); }
+  57% { opacity: 1; transform: translate(-50%, -50%) translateZ(0); }
+}
+
+.loading-text {
+  position: relative;
+  z-index: 1;
+  color: #94a3b8;
+  margin-top: -4rem;
+  letter-spacing: 0.8rem;
+  font-size: 0.6rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}

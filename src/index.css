@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* This is the secret—everything must be transparent */
+html, body, #root, .App {
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+}
+
+canvas {
+  display: block;
+}

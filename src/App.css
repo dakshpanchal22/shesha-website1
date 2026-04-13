@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  /* This creates the 3D 'room' for the logo to move in */
+  perspective: 1500px; 
+}
+
+canvas {
+  display: block;
+}
+
+/* Optional: Smooths out the image rendering during the huge scale-up */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  backface-visibility: hidden;
+}
